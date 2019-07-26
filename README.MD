@@ -1,2 +1,2 @@
-`\Leadvertex\Plugin\Developer\Developer` - component for represent information
+`\Leadvertex\Plugin\Components\Developer\Developer` - component for represent information
 about plugin developer

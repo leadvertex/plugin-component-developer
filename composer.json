@@ -1,5 +1,5 @@
 {
-  "name": "leadvertex/plugin-developer",
+  "name": "leadvertex/plugin-component-developer",
   "description": "LeadVertex plugin developer information component",
   "type": "library",
   "minimum-stability": "stable",
@@ -12,7 +12,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Leadvertex\\Plugin\\Developer\\": "src/"
+      "Leadvertex\\Plugin\\Components\\Developer\\": "src/"
     }
   },
   "require": {
@@ -20,7 +20,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Leadvertex\\Plugin\\Developer\\": "tests/"
+      "Leadvertex\\Plugin\\Components\\Developer\\": "tests/"
     }
   },
   "require-dev": {
