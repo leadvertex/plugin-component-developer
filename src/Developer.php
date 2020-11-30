@@ -9,9 +9,12 @@ namespace Leadvertex\Plugin\Components\Developer;
 
 
 use JsonSerializable;
+use RuntimeException;
 
-class Developer implements JsonSerializable
+final class Developer implements JsonSerializable
 {
+
+    private static self $instance;
 
     private string $name;
 
@@ -25,7 +28,7 @@ class Developer implements JsonSerializable
      * @param string $email of support this export
      * @param string $uri hostname of this export (e.g. example.com)
      */
-    public function __construct(string $name, string $email, string $uri)
+    private function __construct(string $name, string $email, string $uri)
     {
         $this->name = $name;
         $this->email = $email;
@@ -54,5 +57,18 @@ class Developer implements JsonSerializable
             'email' => $this->email,
             'uri' => $this->uri,
         ];
+    }
+
+    public static function config(string $name, string $email, string $uri): void
+    {
+        self::$instance = new self($name, $email, $uri);
+    }
+
+    public static function getInstance(): self
+    {
+        if (!isset(self::$instance)) {
+            throw new RuntimeException('Plugin developer is not configured');
+        }
+        return self::$instance;
     }
 }
