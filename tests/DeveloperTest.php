@@ -7,6 +7,7 @@
 
 namespace Leadvertex\Plugin\Components\Developer;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class DeveloperTest extends TestCase
@@ -14,28 +15,36 @@ class DeveloperTest extends TestCase
 
     private string $name = 'Tony';
 
-    private string $email = 'tony@starkindustries.com';
+    private string $email = 'Tony@starkindustries.com';
+
+    private string $hostname = 'starkindustries.com';
 
     protected function setUp(): void
     {
         parent::setUp();
-        Developer::config($this->name, $this->email);
+        Developer::config($this->name, $this->email, $this->hostname);
     }
 
-    public function testGetName()
+    public function testConfigWithInvalidHostname(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Developer::config($this->name, $this->email, 'https://example.com');
+    }
+
+    public function testGetName(): void
     {
         $this->assertEquals($this->name, Developer::getInstance()->getName());
     }
 
-    public function testGetEmail()
+    public function testGetEmail(): void
     {
-        $this->assertEquals($this->email, Developer::getInstance()->getEmail());
+        $this->assertEquals('tony@starkindustries.com', Developer::getInstance()->getEmail());
     }
 
-    public function testJsonSerialize()
+    public function testJsonSerialize(): void
     {
         $this->assertEquals(
-            '{"name":"Tony","email":"tony@starkindustries.com"}',
+            '{"name":"Tony","email":"tony@starkindustries.com","hostname":"starkindustries.com"}',
             json_encode(Developer::getInstance())
         );
     }
