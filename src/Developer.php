@@ -8,84 +8,51 @@
 namespace Leadvertex\Plugin\Components\Developer;
 
 
-class Developer
+use JsonSerializable;
+
+class Developer implements JsonSerializable
 {
 
-    /**
-     * @var string
-     */
-    private $name;
-    /**
-     * @var string
-     */
-    private $email;
-    /**
-     * @var string
-     */
-    private $hostname;
-    /**
-     * @var string
-     */
-    private $sign;
+    private string $name;
+
+    private string $email;
+
+    private string $uri;
 
     /**
      * Developer constructor.
      * @param string $name of company or developer
      * @param string $email of support this export
-     * @param string $hostname hostname of this export (e.g. example.com)
-     * @param string $sign string, provided by leadvertex.com for developer verification (not required)
+     * @param string $uri hostname of this export (e.g. example.com)
      */
-    public function __construct(string $name, string $email, string $hostname, string $sign = null)
+    public function __construct(string $name, string $email, string $uri)
     {
         $this->name = $name;
         $this->email = $email;
-        $this->hostname = $hostname;
-        $this->sign = $sign;
+        $this->uri = $uri;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
-    public function getHostname(): string
+    public function getUri(): string
     {
-        return $this->hostname;
+        return $this->uri;
     }
 
-    /**
-     * @return string
-     */
-    public function getSign(): string
-    {
-        return $this->sign;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray(): array
+    public function jsonSerialize()
     {
         return [
             'name' => $this->name,
             'email' => $this->email,
-            'hostname' => $this->hostname,
-            'sign' => $this->sign,
+            'uri' => $this->uri,
         ];
     }
-
 }

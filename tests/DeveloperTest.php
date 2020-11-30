@@ -12,20 +12,13 @@ use PHPUnit\Framework\TestCase;
 class DeveloperTest extends TestCase
 {
 
-    /** @var string */
-    private $name = 'Tony';
+    private string $name = 'Tony';
 
-    /** @var string */
-    private $email = 'tony@starkindustries.com';
+    private string $email = 'tony@starkindustries.com';
 
-    /** @var string */
-    private $hostname = 'starkindustries.com';
+    private string $uri = 'https://starkindustries.com/plugin';
 
-    /** @var string */
-    private $sign = 'tonystark';
-
-    /** @var Developer */
-    private $developer;
+    private Developer $developer;
 
     protected function setUp(): void
     {
@@ -33,8 +26,7 @@ class DeveloperTest extends TestCase
         $this->developer = new Developer(
             $this->name,
             $this->email,
-            $this->hostname,
-            $this->sign
+            $this->uri
         );
     }
 
@@ -48,24 +40,17 @@ class DeveloperTest extends TestCase
         $this->assertEquals($this->email, $this->developer->getEmail());
     }
 
-    public function testGetHostname()
+    public function testGetUri()
     {
-        $this->assertEquals($this->hostname, $this->developer->getHostname());
+        $this->assertEquals($this->uri, $this->developer->getUri());
     }
 
-    public function testGetSign()
+    public function testJsonSerialize()
     {
-        $this->assertEquals($this->sign, $this->developer->getSign());
-    }
-
-    public function testToArray()
-    {
-        $this->assertEquals([
-            'name' => $this->name,
-            'email' => $this->email,
-            'hostname' => $this->hostname,
-            'sign' => $this->sign,
-        ], $this->developer->toArray());
+        $this->assertEquals(
+            '{"name":"Tony","email":"tony@starkindustries.com","uri":"https:\/\/starkindustries.com\/plugin"}',
+            json_encode($this->developer)
+        );
     }
 
 }
