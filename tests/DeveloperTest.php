@@ -16,40 +16,27 @@ class DeveloperTest extends TestCase
 
     private string $email = 'tony@starkindustries.com';
 
-    private string $uri = 'https://starkindustries.com/plugin';
-
-    private Developer $developer;
-
     protected function setUp(): void
     {
         parent::setUp();
-        $this->developer = new Developer(
-            $this->name,
-            $this->email,
-            $this->uri
-        );
+        Developer::config($this->name, $this->email);
     }
 
     public function testGetName()
     {
-        $this->assertEquals($this->name, $this->developer->getName());
+        $this->assertEquals($this->name, Developer::getInstance()->getName());
     }
 
     public function testGetEmail()
     {
-        $this->assertEquals($this->email, $this->developer->getEmail());
-    }
-
-    public function testGetUri()
-    {
-        $this->assertEquals($this->uri, $this->developer->getUri());
+        $this->assertEquals($this->email, Developer::getInstance()->getEmail());
     }
 
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            '{"name":"Tony","email":"tony@starkindustries.com","uri":"https:\/\/starkindustries.com\/plugin"}',
-            json_encode($this->developer)
+            '{"name":"Tony","email":"tony@starkindustries.com"}',
+            json_encode(Developer::getInstance())
         );
     }
 

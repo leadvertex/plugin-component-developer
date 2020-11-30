@@ -20,19 +20,15 @@ final class Developer implements JsonSerializable
 
     private string $email;
 
-    private string $uri;
-
     /**
      * Developer constructor.
      * @param string $name of company or developer
      * @param string $email of support this export
-     * @param string $uri hostname of this export (e.g. example.com)
      */
-    private function __construct(string $name, string $email, string $uri)
+    private function __construct(string $name, string $email)
     {
         $this->name = $name;
         $this->email = $email;
-        $this->uri = $uri;
     }
 
     public function getName(): string
@@ -45,23 +41,17 @@ final class Developer implements JsonSerializable
         return $this->email;
     }
 
-    public function getUri(): string
-    {
-        return $this->uri;
-    }
-
     public function jsonSerialize()
     {
         return [
             'name' => $this->name,
             'email' => $this->email,
-            'uri' => $this->uri,
         ];
     }
 
-    public static function config(string $name, string $email, string $uri): void
+    public static function config(string $name, string $email): void
     {
-        self::$instance = new self($name, $email, $uri);
+        self::$instance = new self($name, $email);
     }
 
     public static function getInstance(): self
